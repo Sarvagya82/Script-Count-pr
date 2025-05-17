@@ -1,0 +1,34 @@
+name: Daily GitHub PR Snapshot
+
+on:
+  schedule:
+    # Runs daily at 11:50 PM IST = 18:20 UTC (adjust if your timezone differs)
+    - cron: '20 18 * * *'
+
+jobs:
+  run-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create .env file for token
+        run: echo "GITHUB_TOKEN=${{ secrets.TOKEN }}" > .env
+
+      - name: Run PR report script
+        run: python pr_all_repos_daily_snapshot.py
+
+      - name: Upload report as artifact (optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: pr_report
+          path: report.md
