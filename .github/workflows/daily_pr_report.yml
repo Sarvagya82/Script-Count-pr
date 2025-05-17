@@ -3,7 +3,7 @@ name: Daily GitHub PR Snapshot
 on:
   schedule:
     # Runs daily at 11:50 PM IST = 18:20 UTC (adjust if your timezone differs)
-    - cron: '20 18 * * *'
+    - cron: '10 22 * * *'
 
 jobs:
   run-report:
