@@ -2,8 +2,9 @@ name: Daily GitHub PR Snapshot
 
 on:
   schedule:
-    - cron: '*/2 * * * *'  # every 2 minutes
-  workflow_dispatch:
+    - cron: '*/2 * * * *'  # every 2 minutes for testing
+  workflow_dispatch:       # manual trigger
+
 jobs:
   run-report:
     runs-on: ubuntu-latest
@@ -24,11 +25,4 @@ jobs:
         run: echo "GITHUB_TOKEN=${{ secrets.TOKEN }}" > .env
 
       - name: Run PR report script
-        run: python pr_all_repos_daily_snapshot.py > report.md
-
-      - name: Upload report as artifact (optional)
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: pr_report
-          path: report.md
-
+        run: python pr_all_repos_daily_snapshot.py
