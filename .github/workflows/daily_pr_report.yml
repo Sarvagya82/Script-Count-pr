@@ -1,8 +1,6 @@
 name: Send PR Report to Google Chat
 
 on:
-  schedule:
-    - cron: '0,30 * * * *'  # Runs daily at 11:50 PM IST (6:20 PM UTC)
   workflow_dispatch:        # Optional manual run
 
 jobs:
